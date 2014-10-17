@@ -7,6 +7,10 @@ Handlebars.registerHelper('url', function(url) {
   } else {
     var options = arguments[1],
         hash = (options && options.hash) || options;
+    // Support passing functions as url
+    if (_.isFunction(url)) {
+      url = url.call(this);
+    }
     if (hash && hash['expand-tokens']) {
       fragment = Thorax.Util.expandToken(url, this, true);
     } else {
